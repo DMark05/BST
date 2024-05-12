@@ -11,11 +11,11 @@ class BST:
         self.__root = None # Representa o nó da raíz da Binary Search Tree
     
     # Associa o valor à chave na BST
-    def put(self, key, val):
+    def put(self, key: int, val: str):
         self.__root = self.__put(self.__root, key, val)
 
     # Associa o valor à chave na BST. Se o nó já existir, substitui o seu valor pelo recebido
-    def __put(self, x: Node, key, val):
+    def __put(self, x: Node, key: int, val: str):
         
         if x is None:
             return Node(key, val)
@@ -28,10 +28,10 @@ class BST:
         x.count = 1 + self.size(x.left) + self.size(x.right)
 
     # Devolve a posição da chave key
-    def rank(self, key):
+    def rank(self, key: int):
         return self.__rank(key, self.__root)
     
-    def __rank(self, key, x):
+    def __rank(self, key: int, x: Node):
         if x is None:
             return 0
         if x.key == key:
@@ -42,7 +42,7 @@ class BST:
             return 1 + self.size(x.left) + self.__rank(key, x.right)
  
     # Devolve o valor double correspondente à chave recebida, ou 0 se não encontrar a chave
-    def get(self, key):
+    def get(self, key: int):
         x = self.__root
         while x:
             if key == x.key:
@@ -54,26 +54,26 @@ class BST:
         return 0
     
     # Devolve o tamanho da BST
-    def size(self, x):
+    def size(self, x: Node):
         if x is None:
             return 0
         return x.count
 
     # Devolve a chave do nó k
-    def select(self, k):
-        return self.__select(self.__root, k)
+    def select(self, key: int):
+        return self.__select(self.__root, key)
 
     # Devolve o Nó que contém a key da classificação (rank) k
-    def __select(self, x, k):
+    def __select(self, x: Node, key: int):
         if x is None:
             return None
         left_size = self.size(x.left)
-        if left_size == k:
+        if left_size == key:
             return x
-        elif left_size > k:
-            return self.__select(x.left, k)
+        elif left_size > key:
+            return self.__select(x.left, key)
         else: #left_size < k
-            return self.__select(x.right, k - left_size - 1)
+            return self.__select(x.right, key - left_size - 1)
 
     # Iterador de chaves
     def keys(self):
@@ -82,7 +82,7 @@ class BST:
         self.inorder(self.__root, q)
         return q
     
-    def inorder(self, x, q):
+    def inorder(self, x: Node, q: Queue):
         if x is None:
             return
         self.inorder(x.left, q)

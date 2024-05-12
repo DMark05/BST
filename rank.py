@@ -1,3 +1,24 @@
+class Queue:
+    def __init__(self):
+        self.__items = []
+
+    def enqueue(self, item):
+        self.__items.append(item)
+
+    def dequeue(self):
+        if self.is_empty():
+            raise IndexError("Queue is empty")
+        return self.__items.pop(0)
+
+    def is_empty(self):
+        return len(self.__items) == 0
+
+    def size(self):
+        return len(self.__items)
+    
+    def __iter__(self):
+        return iter(self.__items)
+
 class Node:
     def __init__(self, key: float | None = None, value: float | None = None) -> None:
         self.key = key
@@ -16,7 +37,6 @@ class BST:
 
     # Associa o valor à chave na BST. Se o nó já existir, substitui o seu valor pelo recebido
     def __put(self, x: Node, key: int, val: str):
-        
         if x is None:
             return Node(key, val)
         if key == x.key:
@@ -26,6 +46,7 @@ class BST:
         else: # key < x.key
             x.left = self.__put(x.left, key, val)
         x.count = 1 + self.size(x.left) + self.size(x.right)
+        return x
 
     # Devolve a posição da chave key
     def rank(self, key: int):
@@ -77,7 +98,6 @@ class BST:
 
     # Iterador de chaves
     def keys(self):
-        pass
         q = Queue()
         self.inorder(self.__root, q)
         return q
@@ -109,6 +129,8 @@ def main():
         num = int(num)
         bst.put(num, txt)
     print(bst.checkRankSelect())
+    for k in bst.keys():
+        print(k)
 
 if __name__ == "__main__":
     main()
